@@ -12,9 +12,9 @@ int cadastrar_aluno() {
        scanf("%d", &novo.matricula);
        getchar();
 
-       FILE *arq = fopen("arquivo-alunos.txt", "r");
+       FILE *arq = fopen("arquivoAlunos.txt", "w");
        if (arq == NULL) {
-          printf("ERRO! N�o foi poss�vel abrir o arquivo para leitura\n");
+          printf("ERRO! Nao foi possivel abrir o arquivo para leitura\n");
           return -1;
        }
        int matricula, qtd_Faltas;
@@ -45,8 +45,8 @@ int cadastrar_aluno() {
     inserir(novo);
 
     printf("\nNovo aluno inserido!\n");
-
 }
+
 
 int main() {
     int op;
