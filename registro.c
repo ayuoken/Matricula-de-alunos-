@@ -7,7 +7,7 @@ void inserir(aluno a) {
 
 void escrever_novo_aluno(aluno a) {
     FILE *arq;
-    arq = fopen("arquivo-alunos.txt", "a");
+    arq = fopen("arquivoAlunos.txt", "a");
     if (arq == NULL) {
         printf("ERRO! Nao foi possivel abrir o arquivo\n");
 
@@ -27,16 +27,15 @@ void escrever_novo_aluno(aluno a) {
 }
 
 void remover(int matricula) {
-
-    FILE *arq_entrada = fopen("arquivo-alunos.txt", "r");
+    FILE *arq_entrada = fopen("arquivoAlunos.txt", "r");
     if (arq_entrada == NULL) {
-        printf("ERRO! Não foi possível abrir o arquivo para leitura\n");
+        printf("ERRO! Nao foi possivel abrir o arquivo para leitura\n");
         return;
     }
 
-    FILE *arq_temporario = fopen("arquivo-alunos-temp.txt", "w");
+    FILE *arq_temporario = fopen("arquivoAlunosTemp.txt", "w");
     if (arq_temporario == NULL) {
-        printf("ERRO! Não foi possível abrir o arquivo temporário para escrita\n");
+        printf("ERRO! Nao foi possivel abrir o arquivo temporário para escrita\n");
         fclose(arq_entrada);
         return;
     }
@@ -46,31 +45,34 @@ void remover(int matricula) {
     char nome[50];
 
     int flag = 0;
-    while (fscanf(arq_entrada,"%d %f %f %f %f %f %f %f %d %f %[^\n]",&matricula_atual,&notas[0],&notas[1],&notas[2],&notas[3],&notas[4],&notas[5],
-                  &notas[6],&qtd_faltas,&media,nome)==11){
+
+    while (fscanf(arq_entrada, "%d %f %f %f %f %f %f %f %d %f %[^\n]", &matricula_atual, &notas[0], &notas[1], &notas[2], &notas[3], &notas[4], &notas[5],
+                  &notas[6], &qtd_faltas, &media, nome) == 11) {
         if (matricula_atual == matricula) {
             flag++;
         } else {
             fprintf(arq_temporario, "%d %.2f %.2f %.2f %.2f %.2f %.2f %.2f %d %.2f %s\n", matricula_atual, notas[0], notas[1], notas[2],
-                     notas[3], notas[4], notas[5],notas[6],qtd_faltas,media,nome);
+                     notas[3], notas[4], notas[5], notas[6], qtd_faltas, media, nome);
         }
     }
 
     // Verifica se o usuário existe com o uso de flag
     if (flag == 0) {
         printf("ERRO! Usuario nao existe!\n");
+    } else {
+        printf("Usuario removido com sucesso!\n");
     }
 
     fclose(arq_entrada);
     fclose(arq_temporario);
-    remove("arquivo-alunos.txt");
-    rename("arquivo-alunos-temp.txt", "arquivo-alunos.txt");
+    remove("arquivoAlunos.txt");
+    rename("arquivoAlunosTemp.txt", "arquivoAlunos.txt");
 }
 
 int procurar(int matricula) {
-    FILE *arq = fopen("arquivo-alunos.txt", "r");
+    FILE *arq = fopen("arquivoAlunos.txt", "r");
     if (arq == NULL) {
-        printf("ERRO! Não foi possível abrir o arquivo para leitura\n");
+        printf("ERRO! Nao foi possível abrir o arquivo para leitura\n");
         return -1;
     }
 
@@ -98,7 +100,7 @@ int procurar(int matricula) {
 
     // Verificar se o usuário existia com o uso de flag
     if (flag == 0) {
-        printf("ERRO! Usuário não existe!\n");
+        printf("ERRO! Usuario nao existe!\n");
         return -1;
     }
 
@@ -111,7 +113,7 @@ int procurar(int matricula) {
 
 void listagemDeTodosAlunos(){
 
-   FILE *arq = fopen("arquivo-alunos.txt", "r");
+   FILE *arq = fopen("arquivoAlunos.txt", "r");
 
    if(arq){
         int matricula, qtd_faltas;
@@ -142,7 +144,7 @@ void listagemDeTodosAlunos(){
 
 void aprovados(){
 
-    FILE *arq = fopen("arquivo-alunos.txt", "r");
+    FILE *arq = fopen("arquivoAlunos.txt", "r");
 
     if(arq){
 
@@ -166,7 +168,7 @@ void aprovados(){
          }
 
     }else{
-       printf("ERRO ao abrie arquivo\n");
+       printf("ERRO ao abrir arquivo\n");
        fclose(arq);
     }
 
@@ -175,7 +177,7 @@ void aprovados(){
 
 void reprovados(){
 
-   FILE *arq = fopen("arquivo-alunos.txt", "r");
+   FILE *arq = fopen("arquivoAlunos.txt", "r");
 
    if(arq){
         int matricula, qtd_faltas;
